@@ -22,7 +22,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    Greeting("Android")
+                    TodoList()
                 }
             }
         }
@@ -30,14 +30,38 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun Greeting(name: String) {
-    Text(text = "Hello $name!")
+fun TodoList(){
+
 }
+
+@Composable
+fun InputData(
+
+){
+
+}
+
 
 @Preview(showBackground = true)
 @Composable
 fun DefaultPreview() {
     ComposeArchitectureTheme {
-        Greeting("Android")
+        TodoList()
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun InputDataPreview(){
+    ComposeArchitectureTheme {
+
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun TodoDataPreview(){
+    ComposeArchitectureTheme {
+
     }
 }
