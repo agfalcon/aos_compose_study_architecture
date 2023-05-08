@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">ComposeArchitecture</string>
+    <string name="title_activity_composition_local">CompositionLocalActivity</string>
 </resources>
