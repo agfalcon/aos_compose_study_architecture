@@ -2,7 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-permission android:name="android.permission.INTERNET"/>
+
     <application
+        android:name=".DIApp"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -13,11 +16,10 @@
         android:theme="@style/Theme.ComposeArchitecture"
         tools:targetApi="31">
         <activity
-            android:name=".NavigationActivity"
+            android:name=".HiltActivity"
             android:exported="true"
-            android:label="@string/title_activity_navigation"
-            android:theme="@style/Theme.ComposeArchitecture">
-
+            android:label="@string/title_activity_hilt"
+            android:theme="@style/Theme.ComposeArchitecture" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -25,12 +27,17 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".CompositionLocalActivity"
+            android:name=".NavigationActivity"
             android:exported="true"
-            android:label="@string/title_activity_composition_local"
+            android:label="@string/title_activity_navigation"
             android:theme="@style/Theme.ComposeArchitecture">
 
         </activity>
+        <activity
+            android:name=".CompositionLocalActivity"
+            android:exported="true"
+            android:label="@string/title_activity_composition_local"
+            android:theme="@style/Theme.ComposeArchitecture"></activity>
         <activity
             android:name=".MainActivity"
             android:exported="true"
