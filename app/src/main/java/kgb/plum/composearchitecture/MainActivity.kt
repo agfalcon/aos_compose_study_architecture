@@ -6,12 +6,15 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.animation.Crossfade
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import kgb.plum.composearchitecture.data.TodoData
 import kgb.plum.composearchitecture.ui.theme.ComposeArchitectureTheme
 
@@ -25,7 +28,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    TodoList()
+                    TodoList(TodoViewModel())
                 }
             }
         }
@@ -33,8 +36,29 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun TodoList(){
-
+fun TodoList(todoViewModel: TodoViewModel = viewModel()){
+    Column {
+        InputData(
+            content = todoViewModel.content.value,
+            setContent = {
+                todoViewModel.content.value = it
+            },
+            onSubmit = {
+                todoViewModel.onSubmit(todoViewModel.content.value)
+                todoViewModel.content.value = ""
+            }
+        )
+        LazyColumn {
+            items(items = todoViewModel.todoList, key = {it.id}) { todoData ->
+                TodoItem(
+                    todoData = todoData,
+                    onToggle = {id -> todoViewModel.onToggle(id)},
+                    onDelete = {id -> todoViewModel.onDelete(id)},
+                    onEdit = {id, text -> todoViewModel.onEdit(id, text)}
+                )
+            }
+        }
+    }
 }
 
 @Composable
@@ -91,13 +115,14 @@ fun TodoItem(
                         Button(onClick = {isEdit = true}) {
                             Text("수정")
                         }
+                        Spacer(modifier = Modifier.size(6.dp))
                         Button(onClick = {onDelete(todoData.id)}) {
                             Text("삭제")
                         }
                     }
                 }
                 true -> {
-                    val (text, setText) = remember{mutableStateOf("")}
+                    val (text, setText) = remember{mutableStateOf(todoData.content)}
                     Row(
                         verticalAlignment = Alignment.CenterVertically
                     ){
@@ -107,7 +132,10 @@ fun TodoItem(
                         )
                         Spacer(modifier = Modifier.size(6.dp))
                         Button(
-                            onClick = { onEdit(todoData.id, text) }
+                            onClick = {
+                                onEdit(todoData.id, text)
+                                isEdit = false
+                            }
                         ) {
                             Text("수정")
                         }
