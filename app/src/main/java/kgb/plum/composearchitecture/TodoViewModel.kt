@@ -2,15 +2,21 @@ package kgb.plum.composearchitecture
 
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import kgb.plum.composearchitecture.data.TodoData
 
 class TodoViewModel: ViewModel() {
-    val id = mutableStateOf(1)
-    val content = mutableStateOf("")
+    private val id = mutableStateOf(1)
+    private val _content = MutableLiveData("")
+    val content : LiveData<String> = _content
     val todoList = mutableStateListOf<TodoData>()
 
 
+    fun setContent(text: String){
+        _content.value = text
+    }
     fun onToggle(id : Int) {
         val index = todoList.indexOfFirst { it.id == id }
         todoList[index] = todoList[index].copy(done = !todoList[index].done)
@@ -28,6 +34,6 @@ class TodoViewModel: ViewModel() {
 
     fun onSubmit(content: String) {
         todoList.add(TodoData(id.value, content))
-        id.value.plus(1)
+        id.value = id.value.plus(1)
     }
 }

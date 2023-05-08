@@ -10,6 +10,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.*
 import androidx.compose.runtime.*
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
@@ -39,13 +40,13 @@ class MainActivity : ComponentActivity() {
 fun TodoList(todoViewModel: TodoViewModel = viewModel()){
     Column {
         InputData(
-            content = todoViewModel.content.value,
+            content = todoViewModel.content.observeAsState(initial = "").value,
             setContent = {
-                todoViewModel.content.value = it
+                todoViewModel.setContent(it)
             },
             onSubmit = {
-                todoViewModel.onSubmit(todoViewModel.content.value)
-                todoViewModel.content.value = ""
+                todoViewModel.onSubmit(it)
+                todoViewModel.setContent("")
             }
         )
         LazyColumn {
