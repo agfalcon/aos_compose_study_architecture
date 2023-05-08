@@ -13,9 +13,9 @@
         android:theme="@style/Theme.ComposeArchitecture"
         tools:targetApi="31">
         <activity
-            android:name=".CompositionLocalActivity"
+            android:name=".NavigationActivity"
             android:exported="true"
-            android:label="@string/title_activity_composition_local"
+            android:label="@string/title_activity_navigation"
             android:theme="@style/Theme.ComposeArchitecture">
 
             <intent-filter>
@@ -24,14 +24,18 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".CompositionLocalActivity"
+            android:exported="true"
+            android:label="@string/title_activity_composition_local"
+            android:theme="@style/Theme.ComposeArchitecture">
 
+        </activity>
         <activity
             android:name=".MainActivity"
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.ComposeArchitecture">
-
-
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
